@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<title>Index</title>
+{% endblock %}
+
+
+{% block body %} 
+<div class="players">
+    <h1 style="text-align:center">Select Who you Are</h1>
+
+    {% if players|length < 1 %}
+    <h4 style="text-align:center">There are no Players</h4>
+    {% else %}
+    <table>
+        <tr>
+            <th>Player</th>
+            <th>Ranking</th>
+            <th>Pick yourself</th>
+        </tr>
+        {% for player in players %}
+        {% if player.isAvailable %}
+        <tr>
+            <td>{{ player.firstName }} {{ player.lastName }}</td>
+            <td>{{ player.ranking }}</td>
+            <td>
+                <a href="/challenge/{{player.playerId}}">Me</a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
+<div>
+    <a href="/admin/">click for admin</a> <br><br>
+    <a href="/resolve/">click for resolve</a> <br><br>
+    <a href="/stats/">slick for stats</a> 
+</div>
+{% endblock %}
