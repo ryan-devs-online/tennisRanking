@@ -4,7 +4,6 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-# needs to become the flask-login users model
 
 class User(db.Model):
     __bind_key__ = 'users'
@@ -17,7 +16,7 @@ class User(db.Model):
     challengeDate = db.Column(db.DateTime, default=datetime.utcnow)
     isAvailable = db.Column(db.Boolean, nullable=False)
     ranking = db.Column(db.String, nullable=False)
-    isCoach = db.Column(db.Boolean, nullable=False, default=False)
+    isCoach = db.Column(db.Boolean, nullable=True, default=False)
 
     def __repr__(self):
         return '<User %r>' % self.userId
@@ -26,15 +25,12 @@ class User(db.Model):
         return True
         
     def get_id(self):
-        """Return the userId to satisfy Flask-Login's requirements."""
         return chr(self.userId)
 
     def is_authenticated(self):
-        """Return True if the user is authenticated."""
         return self.authenticated
 
     def is_anonymous(self):
-        """False, as anonymous users aren't supported."""
         return False
     
 

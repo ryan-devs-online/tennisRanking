@@ -1,12 +1,8 @@
 from flask import Flask, flash, render_template, request, redirect
 from tennisRanking.models import User, Matches, db
-from tennisRanking import app
 
 
-#Admin stuff
-@app.route('/admin/', methods=['POST','GET'])
 def admin():
-    # get user
     """
     if user is not a coach, don't allow to proceede and redirect 
     to a different page
@@ -15,9 +11,14 @@ def admin():
         fName = request.form['firstName']
         lName = request.form['lastName']
         rank = request.form['ranking']
+        print("before the is coach @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        isCoach = request.args.get('isCoach')
+        print("after the is coach @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
-        new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=rank)
+
+        new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=rank, isCoach=isCoach)
         try:
+            print("in the try")
             db.session.add(new_player)
             db.session.commit()
             return redirect('/admin')
@@ -29,7 +30,6 @@ def admin():
         return render_template('admin.html', players=players)    
 
    
-@app.route('/admin/delete/<int:id>')
 def deletePlayer(id):
     player_to_delete = User.query.get_or_404(id)
 
@@ -40,7 +40,6 @@ def deletePlayer(id):
     except:
         return 'There was a problem deleting'
 
-@app.route('/admin/update/<int:id>')
 def updatePlayer(id):
     player_to_update = User.query.get_or_404(id)
 
@@ -51,7 +50,6 @@ def updatePlayer(id):
     # except:
     return "I haven't finished this part yet"
 
-@app.route('/admin/delete/delete_all_matches')
 def deleteMatchHistory():
     Matches.query.delete()
     db.session.commit()
