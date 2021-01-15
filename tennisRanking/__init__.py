@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from datetime import datetime
 from tennisRanking.models import User, Matches, db
-from tennisRanking.views import views
-from tennisRanking.views import admin_views
+# from tennisRanking.views import views
+# from tennisRanking.views import admin_views
 
 app = Flask('tennisRanking')
 
