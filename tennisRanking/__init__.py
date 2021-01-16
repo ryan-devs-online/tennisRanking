@@ -3,6 +3,7 @@ from flask import Flask, flash, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from datetime import datetime
+from flask_login import login_manager, login_required
 from tennisRanking.models import User, Matches, db
 from tennisRanking.views.views import *
 from tennisRanking.views.admin_views import *
@@ -24,7 +25,7 @@ logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 with app.app_context():
     db.create_all()
 
-
+@login_manager.user_loader
 def user_loader(user_id):
     """Given *user_id*, return the associated User object.
 
