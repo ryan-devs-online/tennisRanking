@@ -11,9 +11,7 @@ def admin():
         fName = request.form['firstName']
         lName = request.form['lastName']
         rank = request.form['ranking']
-        print("before the is coach @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         isCoach = request.args.get('isCoach')
-        print("after the is coach @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
 
         new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=rank, isCoach=isCoach)

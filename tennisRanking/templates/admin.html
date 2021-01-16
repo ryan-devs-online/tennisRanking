@@ -23,8 +23,8 @@
             <td>{{ player.firstName }} {{ player.lastName }}</td>
             <td>{{ player.ranking }}</td>
             <td>
-                <a href="/admin/delete/{{player.playerId}}">Delete</a>
-                <a href="/admin/update/{{player.playerId}}">Update</a>
+                <a href="/admin/delete/{{ player.userId }}">Delete</a>
+                <a href="/admin/update/{{player.userId}}">Update</a>
             </td>
         </tr>
         {% endfor %}

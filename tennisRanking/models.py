@@ -16,7 +16,7 @@ class User(db.Model):
     challengeDate = db.Column(db.DateTime, default=datetime.utcnow)
     isAvailable = db.Column(db.Boolean, nullable=False)
     ranking = db.Column(db.String, nullable=False)
-    isCoach = db.Column(db.Boolean, nullable=True, default=False)
+    isCoach = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<User %r>' % self.userId

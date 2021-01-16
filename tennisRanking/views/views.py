@@ -31,8 +31,6 @@ def challenge(id,myself_id):
     except:
         return 'There was an issue challenging'
 
-    return render_template('challenge.html', players=players)
-
 
 def myself(id):
     myself = User.query.get_or_404(id)
@@ -41,9 +39,7 @@ def myself(id):
 
 def resolve():
     if request.method == 'POST':
-        print("in the post")
         # try:
-        print("in the try")
         player_one_id = request.form.get('player_one')
         player_two_id = request.form.get('player_two')
 

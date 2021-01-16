@@ -15,13 +15,13 @@
     <table>
         {% for match in matches %}
             {% for player in players %}
-                {% if match.playerIdOne == player.playerId %}
+                {% if match.playerIdOne == player.userId %}
                 <label for="playerOne">{{ player.firstName }} {{ player.lastName }}</label>
                 {% endif %}
             {% endfor %}
                 beat
             {% for player in players %}
-                {% if match.playerIdTwo == player.playerId %}
+                {% if match.playerIdTwo == player.userId %}
                 <label for="playerTwo">{{ player.firstName }} {{ player.lastName }}</label>
                 {% endif %}
             {% endfor %}

@@ -44,7 +44,7 @@ app.add_url_rule('/stats/', view_func=stats, methods=['GET', 'POST'])
 
 # mat the functions to admin urls
 app.add_url_rule('/admin/', view_func=admin, methods=['POST','GET'])
-app.add_url_rule('/admin/delete/<int:id>', view_func=deletePlayer, methods=['POST'])
+app.add_url_rule('/admin/delete/<int:id>', view_func=deletePlayer, methods=['POST','GET'])
 app.add_url_rule('/admin/update/<int:id>', view_func=updatePlayer, methods=['POST'])
 app.add_url_rule('/admin/delete/delete_all_matches', view_func=deleteMatchHistory, methods=['POST'])
 
