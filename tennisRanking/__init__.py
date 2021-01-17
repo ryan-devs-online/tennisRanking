@@ -1,9 +1,10 @@
 import logging
+
+from datetime import datetime
 from flask import Flask, flash, render_template, request, redirect
+from flask_login import LoginManager, login_required
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
-from datetime import datetime
-from flask_login import login_manager, login_required
 from tennisRanking.models import User, Matches, db
 from tennisRanking.views.views import *
 from tennisRanking.views.admin_views import *
@@ -16,6 +17,8 @@ app.config['SQLALCHEMY_BINDS'] = {
     'users': 'sqlite:///users.db'}
 app.config['SECRET_KEY'] = "random string"
 
+
+
 db.init_app(app)
 
 logging.basicConfig()
@@ -25,13 +28,8 @@ logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 with app.app_context():
     db.create_all()
 
-@login_manager.user_loader
+# overloading, not sure why the tag doesn't work.
 def user_loader(user_id):
-    """Given *user_id*, return the associated User object.
-
-    :param unicode user_id: user_id (email) user to retrieve
-
-    """
     return User.query.get(user_id)
 
 
@@ -48,6 +46,7 @@ app.add_url_rule('/admin/', view_func=admin, methods=['POST','GET'])
 app.add_url_rule('/admin/delete/<int:id>', view_func=deletePlayer, methods=['POST','GET'])
 app.add_url_rule('/admin/update/<int:id>', view_func=updatePlayer, methods=['POST'])
 app.add_url_rule('/admin/delete/delete_all_matches', view_func=deleteMatchHistory, methods=['POST'])
+
 
 
 

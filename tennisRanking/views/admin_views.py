@@ -1,5 +1,5 @@
 from flask import Flask, flash, render_template, request, redirect
-from flask_login import login_manager, login_required
+from flask_login import login_required
 from tennisRanking.models import User, Matches, db
 
 

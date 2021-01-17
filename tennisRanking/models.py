@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from datetime import datetime
+from werkzeug.security import check_password_hash, generate_password_hash
+
 
 db = SQLAlchemy()
 
@@ -33,6 +35,14 @@ class User(db.Model):
     def is_anonymous(self):
         return False
     
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def is_admin(self):
+        return self.isCoach
 
 
 # this should stay the same I think
