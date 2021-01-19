@@ -21,3 +21,4 @@ def signup():
             return redirect('/')
         except:
             return 'There was an issue adding this player. Try again, then talk to Ryan.'
+    return render_template('signup.html')

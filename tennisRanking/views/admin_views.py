@@ -2,14 +2,8 @@ from flask import Flask, flash, render_template, request, redirect
 from flask_login import login_required
 from tennisRanking.models import User, Matches, db
 
-
-
 @login_required
 def admin():
-    """
-    if user is not a coach, don't allow to proceede and redirect 
-    to a different page
-    """
     if request.method == 'POST':
         fName = request.form['firstName']
         lName = request.form['lastName']
@@ -19,7 +13,6 @@ def admin():
 
         new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=rank, isCoach=isCoach)
         try:
-            print("in the try")
             db.session.add(new_player)
             db.session.commit()
             return redirect('/admin')
