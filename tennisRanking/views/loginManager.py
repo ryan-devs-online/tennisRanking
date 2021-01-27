@@ -4,19 +4,21 @@ from tennisRanking.models import User, db
 from werkzeug.security import check_password_hash
 
 def login():
-    # if current_user.is_authenticated:
-    #     return render_template('index.html')
+    if current_user.is_authenticated:
+        return "test"
 
     if request.method == 'POST':
-            email = request.form['email']
-            user = User.query.filter_by(email = email).first()
-            if user is not None and user.check_password(request.form['password']):
-                login_user(user, remember=True)
-                user.authenticated = True
-                db.session.add(user)
-                db.session.commit()
-                return render_template('index.html')
-            return "Wrong password"
+        email = request.form['email']
+        user = User.query.filter_by(email = email).first()
+        if user is not None and user.check_password(request.form['password']):
+            print("user data: " + str(user.firstName))
+            user.authenticated = True
+            print("auth code: " + str(user.is_authenticated()))
+            login_user(user, remember=True)
+            db.session.add(user)
+            db.session.commit()
+            return render_template('index.html')
+        return "Wrong password"
     if request.method == 'GET':
         return render_template('login.html')
     return render_template('error.html')    

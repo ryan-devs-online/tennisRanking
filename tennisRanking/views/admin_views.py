@@ -4,22 +4,6 @@ from tennisRanking.models import User, Matches, db
 
 @login_required
 def admin():
-    # if request.method == 'POST':
-    #     fName = request.form['firstName']
-    #     lName = request.form['lastName']
-    #     rank = request.form['ranking']
-    #     isCoach = request.args.get('isCoach')
-
-
-    #     new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=rank, isCoach=isCoach)
-    #     try:
-    #         db.session.add(new_player)
-    #         db.session.commit()
-    #         return redirect('/admin')
-    #     except:
-    #         return 'There was an issue adding this player. Try again, then talk to Ryan.'
-
-    # else:
     players = User.query.order_by(User.lastName).all()
     return render_template('admin.html', players=players)    
 
