@@ -11,8 +11,6 @@ from tennisRanking.views.admin_views import *
 from tennisRanking.views.loginManager import *
 from tennisRanking.views.signup import *
 
-
-
 app = Flask('tennisRanking')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -34,14 +32,10 @@ logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 with app.app_context():
     db.create_all()
 
+
 @login_manager.user_loader
 def user_loader(user_id):
     return User.query.get(user_id)
-
-# @login_manager.unauthorized
-# def unauthorized():
-#     return "Go away"
-
 
 # map the functions to basic URLs
 app.add_url_rule('/', view_func=index, methods=['GET','POST'])

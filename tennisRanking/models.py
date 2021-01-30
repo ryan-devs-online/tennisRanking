@@ -1,13 +1,12 @@
+from flask_login import UserMixin, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from datetime import datetime
 from werkzeug.security import check_password_hash, generate_password_hash
 
-
 db = SQLAlchemy()
 
-
-class User(db.Model):
+class User(db.Model, UserMixin):
     __bind_key__ = 'users'
     userId = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String)
@@ -22,18 +21,9 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.userId
-
-    def is_active(self):
-        return True
         
     def get_id(self):
-        return chr(self.userId)
-
-    def is_authenticated(self):
-        return self.authenticated
-
-    def is_anonymous(self):
-        return False
+        return str(self.userId)
     
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -43,9 +33,7 @@ class User(db.Model):
 
     def is_admin(self):
         return self.isCoach
-
-
-# this should stay the same I think
+        
 class Matches(db.Model):
     __bind_key__ = 'matches'
     matchId = db.Column(db.Integer, primary_key=True)

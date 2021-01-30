@@ -43,7 +43,6 @@ def myself(id):
 @login_required
 def resolve():
     if request.method == 'POST':
-        # try:
         player_one_id = request.form.get('player_one')
         player_two_id = request.form.get('player_two')
 
@@ -61,8 +60,6 @@ def resolve():
         player_two.isAvailable = True
         db.session.commit()
         return redirect('/resolve')
-        # except:
-        #     return 'There was an issue resolving this match. Try again then talk to Coach'
 
     else:
         players = User.query.order_by(User.lastName).all()
@@ -72,12 +69,4 @@ def resolve():
 def stats():
     matches = Matches.query.all()
     players = User.query.order_by(User.lastName).all()
-
-
-    # set up db so that player IDs are 
-
-    # compare the IDs from the match db to the player DB -> brute force it for now teams are small
-    # replace id with names? [id_1][id_2] -> [Ryan Smith][Josh Smith]
-
-    # when it matches, print both. 
     return render_template('stats.html', matches=matches, players = players)

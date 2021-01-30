@@ -1,4 +1,5 @@
 from flask import Flask, flash, render_template, request, redirect
+from flask_login.utils import login_required
 from flask_login import login_required
 from tennisRanking.models import User, Matches, db
 
@@ -21,12 +22,6 @@ def deletePlayer(id):
 @login_required
 def updatePlayer(id):
     player_to_update = User.query.get_or_404(id)
-
-    # try:
-    #      db.session.delete(task_to_delete)
-    #      db.session.commit()
-    #     return redirect('/')
-    # except:
     return "I haven't finished this part yet"
 
 @login_required
