@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block head %} 
-<title>Task Master</title>
 {% endblock %}
 
 
@@ -9,15 +8,23 @@
 <div class="content">
     <h1 style="text-align:center">Update Player</h1>
 
-
-    <form action="/update/{{task.id}}" method="POST" style="text-align: center;">
-        <input type="text" name="content" id="content" value="{{task.content}}">
-        <input type="submit" value="Update">
-    </form>
+    <div class="form">
+        <form action="/admin/submit/" method="POST" style="text-align: center;">
+            <label for="firstName">First name:</label>
+            <input type="text" name="firstName" id="firstName"><br><br>
+            <label for="lastName">Last name:</label>
+            <input type="text" name="lastName" id="lastName"><br><br>
+            <label for="ranking">Ranking:</label> -->
+            <input type="text" name="ranking" id="ranking"><br><br>
+            <input type="checkbox" name ="isCoach" id="isCoach">
+            <label for="isCoach">coach</label><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </div>
 <div>
     <a href="/admin/">click for admin</a> <br><br>
     <a href="/resolve/">click for resolve</a> <br><br>
-    <a href="/stats/">slick for stats</a> 
+    <a href="/stats/">click for stats</a> 
 </div>
 {% endblock %}

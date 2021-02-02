@@ -4,45 +4,35 @@
 <title>Admin</title>
 {% endblock %}
 
-
 {% block body %} 
 <div class="players">
-    <h1 style="text-align:center">Add or Remove players</h1>
+    <h1 style="text-align:center">All Players</h1>
 
     {% if players|length < 1 %}
-    <h4 style="text-align:center">There are no players, add some below</h4>
+    <h4 style="text-align:center">There are no players currently</h4>
     {% else %}
     <table>
         <tr>
             <th>Player</th>
             <th>Ranking</th>
+            <th>email</th>
             <th>Actions</th>
         </tr>
         {% for player in players %}
+        {% if not player.isCoach %}
         <tr>
             <td>{{ player.firstName }} {{ player.lastName }}</td>
             <td>{{ player.ranking }}</td>
+            <td>{{ player.email }}</td>
             <td>
                 <a href="/admin/delete/{{ player.userId }}">Delete</a>
                 <a href="/admin/update/{{player.userId}}">Update</a>
             </td>
         </tr>
+        {% endif %}
         {% endfor %}
     </table>
     {% endif %}
-    <div class="form">
-        <form action="/admin/" method="POST" style="text-align: center;">
-            <label for="firstName">First name:</label>
-            <input type="text" name="firstName" id="firstName"><br><br>
-            <label for="lastName">Last name:</label>
-            <input type="text" name="lastName" id="lastName"><br><br>
-            <label for="ranking">Ranking:</label>
-            <input type="text" name="ranking" id="ranking"><br><br>
-            <input type="checkbox" name ="isCoach" id="isCoach">
-            <label for="isCoach">coach</label><br><br>
-            <input type="submit" value="Submit">
-        </form>
-    </div>
 </div>
 <div>
     <h1 style="text-align:center">Remove total Match history </h1>

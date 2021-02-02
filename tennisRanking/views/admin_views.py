@@ -19,10 +19,54 @@ def deletePlayer(id):
     except:
         return 'There was a problem deleting'
 
+
 @login_required
 def updatePlayer(id):
-    player_to_update = User.query.get_or_404(id)
-    return "I haven't finished this part yet"
+    update_player = User.query.get_or_404(id)
+    if request.method == 'POST':
+        print("in the POST  !!!!!!!!!!!!!!!!!! ")
+        fName = request.form['firstName']
+        lName = request.form['lastName']
+        email = request.form['email']
+        rank  = request.form['rank']
+
+        update_player = User.query.get_or_404(id)
+        update_player.fName = fName
+        update_player.lName = lName
+        update_player.email = email
+        update_player.rank = rank
+
+        try:
+            db.session.commit()
+            return render_template('admin.html')
+        except:
+            return 'There was an issue updating this player. Try again, then talk to Ryan.'
+    else:
+        return render_template('update.html', update_player=update_player)
+
+@login_required
+def submitPlayer():
+    update_player = User.query.get_or_404(id)
+    if request.method == 'POST':
+        print("in the POST  !!!!!!!!!!!!!!!!!! ")
+        fName = request.form['firstName']
+        lName = request.form['lastName']
+        email = request.form['email']
+        rank  = request.form['rank']
+
+        update_player = User.query.get_or_404(id)
+        update_player.fName = fName
+        update_player.lName = lName
+        update_player.email = email
+        update_player.rank = rank
+
+        try:
+            db.session.commit()
+            return render_template('admin.html')
+        except:
+            return 'There was an issue updating this player. Try again, then talk to Ryan.'
+    else:
+        return render_template('admin.html')
 
 @login_required
 def deleteMatchHistory():
