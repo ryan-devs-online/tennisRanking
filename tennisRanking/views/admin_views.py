@@ -22,47 +22,29 @@ def deletePlayer(id):
 
 @login_required
 def updatePlayer(id):
-    update_player = User.query.get_or_404(id)
-    if request.method == 'POST':
-        print("in the POST  !!!!!!!!!!!!!!!!!! ")
-        fName = request.form['firstName']
-        lName = request.form['lastName']
-        email = request.form['email']
-        rank  = request.form['rank']
-
-        update_player = User.query.get_or_404(id)
-        update_player.fName = fName
-        update_player.lName = lName
-        update_player.email = email
-        update_player.rank = rank
-
-        try:
-            db.session.commit()
-            return render_template('admin.html')
-        except:
-            return 'There was an issue updating this player. Try again, then talk to Ryan.'
-    else:
-        return render_template('update.html', update_player=update_player)
+    player_update = User.query.get_or_404(id)
+    return render_template('update.html', player=player_update)
 
 @login_required
-def submitPlayer():
+def submitPlayer(id):
     update_player = User.query.get_or_404(id)
     if request.method == 'POST':
-        print("in the POST  !!!!!!!!!!!!!!!!!! ")
         fName = request.form['firstName']
         lName = request.form['lastName']
         email = request.form['email']
-        rank  = request.form['rank']
-
+        rank  = request.form['ranking']
+        coach = request.form['isCoach']
+        print("isCoach: " + str(coach))
         update_player = User.query.get_or_404(id)
-        update_player.fName = fName
-        update_player.lName = lName
+        
+        update_player.firstName = fName
+        update_player.lastName = lName
         update_player.email = email
-        update_player.rank = rank
+        update_player.ranking = rank
 
         try:
             db.session.commit()
-            return render_template('admin.html')
+            return redirect('/admin')
         except:
             return 'There was an issue updating this player. Try again, then talk to Ryan.'
     else:

@@ -37,8 +37,8 @@ class User(db.Model, UserMixin):
 class Matches(db.Model):
     __bind_key__ = 'matches'
     matchId = db.Column(db.Integer, primary_key=True)
-    playerIdOne = db.Column(db.Integer, db.ForeignKey('players.playerId'), nullable=False)
-    playerIdTwo = db.Column(db.Integer, db.ForeignKey('players.playerId'), nullable=False)
+    playerIdOne = db.Column(db.Integer, nullable=False)
+    playerIdTwo = db.Column(db.Integer, nullable=False)
     matchScore = db.Column(db.String, nullable=False)
     winner = db.Column(db.Integer, nullable=False)
 

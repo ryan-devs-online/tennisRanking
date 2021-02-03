@@ -1,5 +1,5 @@
 from flask import Flask, flash, render_template, request, redirect
-from flask_login import login_required
+from flask_login import login_required, current_user
 from tennisRanking.models import User, Matches, db
 #from tennisRanking import app
 
@@ -16,16 +16,15 @@ def index():
 #DB with the availability of both players
 @login_required
 def challengePage():
-    myself = User.query.get_or_404(id)
+    myself = User.query.get_or_404(current_user.userId)
     players = User.query.order_by(User.lastName).all()
     return render_template('challenge.html', players=players, me=myself)
 
 @login_required
-def challenge(id,myself_id):
-    challenging_player = User.query.get_or_404(myself_id)
+def challenge(id):
     player_to_challenge = User.query.get_or_404(id)
 
-    challenging_player.isAvailable = False
+    current_user.isAvailable = False
     player_to_challenge.isAvailable = False
 
     try:
@@ -36,9 +35,8 @@ def challenge(id,myself_id):
 
 @login_required
 def myself(id):
-    myself = User.query.get_or_404(id)
     players = User.query.order_by(User.lastName).all()
-    return render_template('challenge.html', players=players, myself=myself)
+    return render_template('challenge.html', players=players)
 
 @login_required
 def resolve():
@@ -59,7 +57,7 @@ def resolve():
         player_one.isAvailable = True
         player_two.isAvailable = True
         db.session.commit()
-        return redirect('/resolve')
+        return redirect('/')
 
     else:
         players = User.query.order_by(User.lastName).all()

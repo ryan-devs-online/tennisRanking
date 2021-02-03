@@ -7,24 +7,24 @@
 
 {% block body %} 
 <div class="players">
-    <h1 style="text-align:center">Select Who you Are</h1>
+    <h1 style="text-align:center"> {{ current_user.firstName }} who do you Challenge?</h1>
 
     {% if players|length < 1 %}
-    <h4 style="text-align:center">There are no Players</h4>
+    <h4 style="text-align:center">There are no players to challenge</h4>
     {% else %}
     <table>
         <tr>
             <th>Player</th>
             <th>Ranking</th>
-            <th>Pick yourself</th>
+            <th>Challenge</th>
         </tr>
         {% for player in players %}
-        {% if player.isAvailable %}
+        {% if player != current_user and player.isAvailable %}
         <tr>
             <td>{{ player.firstName }} {{ player.lastName }}</td>
             <td>{{ player.ranking }}</td>
             <td>
-                <a href="/challenge/{{player.userId}}">Me</a>
+                <a href="/challenge/{{player.userId}}">Challenge</a>
             </td>
         </tr>
         {% endif %}

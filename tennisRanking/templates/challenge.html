@@ -7,7 +7,7 @@
 
 {% block body %} 
 <div class="players">
-    <h1 style="text-align:center">Select Who you Challenge</h1>
+    <h1 style="text-align:center"> {{ current_user.firstName }} who do you Challenge?</h1>
 
     {% if players|length < 1 %}
     <h4 style="text-align:center">There are no Players</h4>
@@ -19,12 +19,12 @@
             <th>Challenge</th>
         </tr>
         {% for player in players %}
-        {% if player != myself and player.isAvailable %}
+        {% if player != current_user and player.isAvailable %}
         <tr>
             <td>{{ player.firstName }} {{ player.lastName }}</td>
             <td>{{ player.ranking }}</td>
             <td>
-                <a href="/challenge/{{player.userId}}+{{myself.userId}}">Challenge</a>
+                <a href="/challenge/{{player.userId}}">Challenge</a>
             </td>
         </tr>
         {% endif %}
