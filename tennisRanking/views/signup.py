@@ -1,6 +1,6 @@
 from flask import Flask, flash, render_template, redirect, url_for, request
 from flask_login import login_user, login_required, current_user, logout_user
-from tennisRanking.models import User, db
+from tennisRanking.models import User, db, playerRanking
 from werkzeug.security import generate_password_hash
 
 def signup():
@@ -9,11 +9,10 @@ def signup():
         lName = request.form['lastName']
         email = request.form['email']
         password = request.form['password']
-        rank = "placeholder"
 
         hashedPass = generate_password_hash(password)
 
-        new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=rank, email=email,
+        new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=playerRanking.unRanked, email=email,
             isCoach=False, password=hashedPass)
         try:
             db.session.add(new_player)

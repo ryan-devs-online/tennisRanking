@@ -17,7 +17,10 @@
             <label for="email">Email:</label>
             <input type="text" name="email" id="email"><br><br>
             <label for="ranking">Ranking:</label>
-            <input type="text" name="ranking" id="ranking"><br><br>
+            <select name = ranking method = "GET" action = "/">
+                {% for rank in ranking %}
+                <option value= "{{rank.value}}" SELECTED> {{rank.value}}</option>
+                {% endfor %} <br><br>
             <input type="checkbox" name ="isCoach" id="isCoach">
             <label for="isCoach">coach</label><br><br>
             <input type="submit" value="Submit">

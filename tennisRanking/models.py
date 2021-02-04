@@ -1,3 +1,5 @@
+import enum
+
 from flask_login import UserMixin, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
@@ -44,3 +46,11 @@ class Matches(db.Model):
 
     def __repr__(self):
         return '<Match %r>' % self.matchId
+
+class playerRanking(enum.Enum):
+    firstSingles = "1st Singles"
+    secondSingles = "2nd Singles"
+    thirdSingles = "3rd Singles"
+    fourthSingles = "4th Singles"
+    fifthSingles = "5th Singles"
+    unRanked = "Unranked" 
