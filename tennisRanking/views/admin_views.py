@@ -34,12 +34,19 @@ def submitPlayer(id):
         email = request.form['email']
         rank  = request.form['ranking']
         # coach = request.form['isCoach']
-        # print("rank: " + str(rank))
-
+        
+        if(fName == ""):
+            fName = update_player.firstName
+        if(lName == ""):
+            lName = update_player.lastName
+        if(email == ""):
+            email = update_player.email     
+        
         update_player.firstName = fName
         update_player.lastName = lName
         update_player.email = email
         update_player.ranking = rank
+        # update_player.isCoach = coach
 
         try:
             db.session.commit()

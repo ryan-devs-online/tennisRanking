@@ -19,7 +19,11 @@
             <label for="ranking">Ranking:</label>
             <select name = ranking method = "GET" action = "/">
                 {% for rank in ranking %}
-                <option value= "{{rank.value}}" SELECTED> {{rank.value}}</option>
+                    {% if rank == player.ranking %}
+                        <option value= "{{rank.value}}" SELECTED=player.ranking> {{rank.value}}</option>
+                    {% else %}
+                        <option value= "{{rank.value}}"> {{rank.value}}</option>
+                    {% endif %}
                 {% endfor %} <br><br>
             <input type="checkbox" name ="isCoach" id="isCoach">
             <label for="isCoach">coach</label><br><br>

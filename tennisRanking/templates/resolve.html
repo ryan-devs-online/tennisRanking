@@ -9,30 +9,18 @@
 <div class="players">
     <h1 style="text-align:center">Resolve your match</h1>
 
-    {% if players|length < 1 %}
-    <h4 style="text-align:center">There are no Players</h4>
+    {% if opponent == None%}
+    <h4 style="text-align:center">You have no outstanding challenges</h4>
     {% else %}
 
     <form class="form-inline" method="POST" action="{{ url_for('resolve') }}">
         <div class="form-group">
             <div class="input-group">
-                <span class="input-group-addon">Please select the winner, then the loser, and enter the score</span>
-                    <select name="player_one" class="selectpicker form-control">
-                        {% for player in players %}
-                        {% if player.isAvailable == False %}
-                        <option value="{{player.userId}}" SELECTED>{{player.firstName}} {{player.lastName}}</option> 
-                        {% endif %}
-                        {% endfor %}
+                <span class="input-group-addon">{{current_user.firstName}} select the winner and enter the score</span>
+                    <select name="winner" class="selectpicker form-control">
+                        <option value="{{current_user.userId}}" SELECTED>{{current_user.firstName}} {{current_user.lastName}}</option>
+                        <option value="{{opponent.userId}}" SELECTED>{{opponent.firstName}} {{opponent.lastName}}</option>  
                     </select>
-
-                    <select name=player_two method="GET">
-                        {% for player in players %}
-                        {% if player.isAvailable == False %}
-                        <option value="{{player.userId}}" SELECTED>{{player.firstName}} {{player.lastName}}</option> 
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-
                     <label for="score">Enter Score </label>
                     <input type="text" name="score" id="score"><br><br>
             </div>

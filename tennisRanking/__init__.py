@@ -37,11 +37,10 @@ with app.app_context():
 def user_loader(user_id):
     return User.query.get(user_id)
 
+
 # map the functions to basic URLs
 app.add_url_rule('/', view_func=index, methods=['GET','POST'])
-app.add_url_rule('/challenge/', view_func=challengePage, methods=['GET','POST'])
-app.add_url_rule('/challenge/<int:id>+<int:myself_id>', view_func=challenge, methods=['GET','POST'])
-app.add_url_rule('/challenge/<int:id>', view_func=myself, methods=['GET'])
+app.add_url_rule('/challenge/<int:id>', view_func=challenge, methods=['GET'])
 app.add_url_rule('/resolve/', view_func=resolve, methods=['GET', 'POST'])
 app.add_url_rule('/stats/', view_func=stats, methods=['GET', 'POST'])
 

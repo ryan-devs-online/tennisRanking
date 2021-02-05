@@ -14,12 +14,13 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String)
     password = db.Column(db.String)
     authenticated = db.Column(db.Boolean, default=False)
-    lastName = db.Column(db.String(15), nullable=False)
-    firstName = db.Column(db.String(15), nullable=False)
+    lastName = db.Column(db.String, nullable=False)
+    firstName = db.Column(db.String, nullable=False)
     challengeDate = db.Column(db.DateTime, default=datetime.utcnow)
     isAvailable = db.Column(db.Boolean, nullable=False)
     ranking = db.Column(db.String, nullable=False)
     isCoach = db.Column(db.Boolean, default=False)
+    playingAgainst = db.Column(db.Integer)
 
     def __repr__(self):
         return '<User %r>' % self.userId
@@ -53,4 +54,4 @@ class playerRanking(enum.Enum):
     thirdSingles = "3rd Singles"
     fourthSingles = "4th Singles"
     fifthSingles = "5th Singles"
-    unRanked = "Unranked" 
+    unranked = "Unranked" 
