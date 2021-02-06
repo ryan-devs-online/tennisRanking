@@ -19,7 +19,7 @@ def login():
 
             next = request.args.get('next')
 
-            return redirect(next or Flask.url_for('index'))
+            return redirect('/')
         return "Wrong password"
     if request.method == 'GET':
         return render_template('login.html')

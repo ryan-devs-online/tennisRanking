@@ -32,6 +32,26 @@
         {% endif %}
         {% endfor %}
     </table>
+    <br><br>
+    <table>
+        <tr>
+            <th>Coach</th>
+            <th>email</th>
+            <th>Actions</th>
+        </tr>
+        {% for player in players %}
+        {% if player.isCoach %}
+        <tr>
+            <td>{{ player.firstName }} {{ player.lastName }}</td>
+            <td>{{ player.email }}</td>
+            <td>
+                <a href="/admin/delete/{{ player.userId }}">Delete</a>
+                <a href="/admin/update/{{player.userId}}">Update</a>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
     {% endif %}
 </div>
 <div>

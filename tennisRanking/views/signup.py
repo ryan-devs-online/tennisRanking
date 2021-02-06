@@ -14,12 +14,10 @@ def signup():
 
         new_player = User(lastName=lName, firstName=fName, isAvailable=True, ranking=playerRanking.unranked.value, email=email,
             isCoach=False, password=hashedPass, playingAgainst=None)
-        # try:
-        db.session.add(new_player)
-        print("after the add")
-        db.session.commit()
-        print("after the commit")
-        return redirect('/')
-        # except:
-        #     return 'There was an issue adding this player. Try again, then talk to Ryan.'
+        try:
+            db.session.add(new_player)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue adding this player. Try again, then talk to Ryan.'
     return render_template('signup.html')
