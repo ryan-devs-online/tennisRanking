@@ -30,7 +30,9 @@ def deletePlayer(id):
 def updatePlayer(id):
     if current_user.isCoach:
         player_update = User.query.get_or_404(id)
-        return render_template('update.html', player=player_update, ranking=playerRanking)
+        current_rank = player_update.ranking
+        print("Current_rank: " + str(current_rank))
+        return render_template('update.html', player=player_update, ranking=playerRanking, current_rank=current_rank)
     else:
         return redirect('/')
 
@@ -43,9 +45,7 @@ def submitPlayer(id):
             lName = request.form['lastName']
             email = request.form['email']
             rank  = request.form['ranking']
-            coach = request.form['isCoach']
-
-            print("Coach: " + str(coach))
+            coach = request.form.get("isCoach")
             
             if(fName == ""):
                 fName = update_player.firstName
