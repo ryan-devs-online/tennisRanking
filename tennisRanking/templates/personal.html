@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<title>Stats</title>
+{% endblock %}
+
+{% block body %} 
+<div class="players">
+    <h1 style="text-align:center">Your results</h1>
+
+    {% if matches |length < 1 %}
+    <h4 style="text-align:center">There are no matches</h4>
+    {% else %}
+    <table>
+        {% for match in matches %}
+            {% for player in players %}
+                {% if match.playerIdOne == player.userId %}
+                <label for="playerOne">{{ player.firstName }} {{ player.lastName }}</label>
+                {% endif %}
+            {% endfor %}
+                beat
+            {% for player in players %}
+                {% if match.playerIdTwo == player.userId %}
+                <label for="playerTwo">{{ player.firstName }} {{ player.lastName }}</label>
+                {% endif %}
+            {% endfor %}
+                match score
+            <label for="score"> {{ match.matchScore }}</label> <br>
+        {% endfor %}
+        <a href="/personal/dispute/{{match.matchId}}">click to dispute</a> <br><br>
+    </table>
+    {% endif %}
+</div>
+<div>
+    <a href="/admin/">click for admin</a> <br><br>
+    <a href="/resolve/">click for resolve</a> <br><br>
+    <a href="/stats/">slick for stats</a> 
+</div>
+{% endblock %}

@@ -19,7 +19,7 @@
             <th>Challenge</th>
         </tr>
         {% for player in players %}
-        {% if player != current_user and player.isAvailable %}
+        {% if player != current_user and player.isAvailable and player.isCoach != True %}
         <tr>
             <td>{{ player.firstName }} {{ player.lastName }}</td>
             <td>{{ player.ranking }}</td>
@@ -33,6 +33,7 @@
     {% endif %}
 </div>
 <div>
+    <a href="/personal/">click for personal page</a> <br><br>
     <a href="/admin/">click for admin</a> <br><br>
     <a href="/resolve/">click for resolve</a> <br><br>
     <a href="/stats/">click for stats</a> 

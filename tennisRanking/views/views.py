@@ -1,14 +1,23 @@
 from flask import Flask, flash, render_template, request, redirect
 from flask_login import login_required, current_user
 from tennisRanking.models import User, Matches, db
-#from tennisRanking import app
 
-# This route will display all players and ask you to select yourself.
-# Step 1 in the challenge process. 
 @login_required
 def index():
+    if not current_user.isAvailable:
+        opponent =User.query.get_or_404(current_user.playingAgainst)
+        return render_template('resolve.html', current_user=current_user, opponent=opponent)
+    else:
+        players = User.query.order_by(User.lastName).all()
+        return render_template('index.html', players=players)
+
+@login_required
+def personal():
     players = User.query.order_by(User.lastName).all()
-    return render_template('index.html', players=players)
+    matchesOne = Matches.query.filter(Matches.playerIdOne==current_user.userId).all()
+    matchesTwo = Matches.query.filter(Matches.playerIdTwo==current_user.userId).all()
+    matches = matchesOne + matchesTwo
+    return render_template('personal.html', matches=matches, current_user = current_user, players=players)
     
 @login_required
 def challenge(id):
@@ -28,8 +37,8 @@ def challenge(id):
 
 @login_required
 def resolve():
-    opponent =User.query.get_or_404(current_user.playingAgainst)
     if request.method == 'POST':
+        opponent =User.query.get_or_404(current_user.playingAgainst)
         winner = request.form.get('winner')
 
         score = request.form.get('score')
@@ -38,13 +47,25 @@ def resolve():
 
         current_user.isAvailable = True
         opponent.isAvailable = True
+        current_user.playingAgainst = None
+        opponent.playingAgainst = None
+
         db.session.add(resolved_match)
         db.session.commit()
         return redirect('/')
 
     else:
-        opponent = User.query.get_or_404(current_user.playingAgainst)
-        return render_template('resolve.html', current_user=current_user, opponent=opponent)
+        return render_template('resolve.html', current_user=current_user, opponent=None)
+
+@login_required
+def dispute(matchId):
+    match = Matches.query.get(matchId)
+    if current_user.userId != match.playerIdOne or current_user != match.playerIdTwo:
+        return "Nice Try nerd"
+    else:            
+        match.isDisputed = True
+        db.session.commit()
+    personal()
 
 @login_required
 def stats():

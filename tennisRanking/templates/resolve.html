@@ -9,10 +9,9 @@
 <div class="players">
     <h1 style="text-align:center">Resolve your match</h1>
 
-    {% if opponent == None%}
+    {% if opponent == None %}
     <h4 style="text-align:center">You have no outstanding challenges</h4>
     {% else %}
-
     <form class="form-inline" method="POST" action="{{ url_for('resolve') }}">
         <div class="form-group">
             <div class="input-group">
@@ -27,8 +26,6 @@
             <button type="submit" class="btn btn-default">Resolve Score</button>
           </div>
     </form>
-
-
     {% endif %}
 </div>
 {% endblock %}

@@ -44,6 +44,8 @@ app.add_url_rule('/', view_func=index, methods=['GET','POST'])
 app.add_url_rule('/challenge/<int:id>', view_func=challenge, methods=['GET'])
 app.add_url_rule('/resolve/', view_func=resolve, methods=['GET', 'POST'])
 app.add_url_rule('/stats/', view_func=stats, methods=['GET', 'POST'])
+app.add_url_rule('/personal/', view_func=personal, methods=['GET','POST'])
+app.add_url_rule('/personal/dispute/<int:id>', view_func=dispute, methods=['POST'])
 
 # map the functions to admin urls
 app.add_url_rule('/admin/', view_func=admin, methods=['POST','GET'])

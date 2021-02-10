@@ -44,6 +44,7 @@ class Matches(db.Model):
     playerIdTwo = db.Column(db.Integer, nullable=False)
     matchScore = db.Column(db.String, nullable=False)
     winner = db.Column(db.Integer, nullable=False)
+    isDisputed = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return '<Match %r>' % self.matchId
