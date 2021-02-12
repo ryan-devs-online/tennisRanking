@@ -60,12 +60,13 @@ def resolve():
 @login_required
 def dispute(matchId):
     match = Matches.query.get(matchId)
-    if current_user.userId != match.playerIdOne or current_user != match.playerIdTwo:
+    if current_user.userId != match.playerIdOne and current_user != match.playerIdTwo:
         return "Nice Try nerd"
     else:            
         match.isDisputed = True
         db.session.commit()
-    personal()
+    return redirect('/personal/')
+        # return render_template('personal.html')
 
 @login_required
 def stats():

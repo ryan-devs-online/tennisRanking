@@ -25,9 +25,17 @@
                 {% endif %}
             {% endfor %}
                 match score
-            <label for="score"> {{ match.matchScore }}</label> <br>
+            <label for="score"> {{ match.matchScore }}.</label> 
+            {% if match.isDisputed %}
+                This match score is currently in dispute. Talk to coach to resolve it. <br><br>
+            {% else %}
+                <form action="/personal/dispute/{{match.matchId}}" method = "POST">
+                    <div>
+                        <button>click to dispute</button>
+                    </div>
+                </form>
+            {% endif %}
         {% endfor %}
-        <a href="/personal/dispute/{{match.matchId}}">click to dispute</a> <br><br>
     </table>
     {% endif %}
 </div>

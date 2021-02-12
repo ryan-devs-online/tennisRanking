@@ -54,6 +54,29 @@
     </table>
     {% endif %}
 </div>
+<div class="dispute">
+    <h1 style="text-align:center">Disputed Matches</h1>
+
+    {% for match in matches %}
+        {% if match.isDisputed %}
+        dispute between 
+            {% for player in players %}
+                {% if match.playerIdOne == player.userId %}
+                    <label for="playerOne">{{ player.firstName }} {{ player.lastName }}</label>
+                {% endif %}
+            {% endfor %}
+        and
+            {% for player in players %}
+                {% if match.playerIdTwo == player.userId %}
+                    <label for="playerTwo">{{ player.firstName }} {{ player.lastName }}</label>
+                {% endif %}
+            {% endfor %}
+        about match on {{ match.matchDate}}
+
+        <a href="/admin/dispute/{{match.matchId}}"> click to resolve</a><br><br>
+        {% endif %}
+    {% endfor %}
+</div>
 <div>
     <h1 style="text-align:center">Remove total Match history </h1>
     <a style="text-align:center" href="/admin/delete/delete_all_matches">Delete</a>

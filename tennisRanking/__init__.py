@@ -45,7 +45,7 @@ app.add_url_rule('/challenge/<int:id>', view_func=challenge, methods=['GET'])
 app.add_url_rule('/resolve/', view_func=resolve, methods=['GET', 'POST'])
 app.add_url_rule('/stats/', view_func=stats, methods=['GET', 'POST'])
 app.add_url_rule('/personal/', view_func=personal, methods=['GET','POST'])
-app.add_url_rule('/personal/dispute/<int:id>', view_func=dispute, methods=['POST'])
+app.add_url_rule('/personal/dispute/<int:matchId>', view_func=dispute, methods=['GET','POST']) # might have messed up the url
 
 # map the functions to admin urls
 app.add_url_rule('/admin/', view_func=admin, methods=['POST','GET'])
@@ -53,6 +53,7 @@ app.add_url_rule('/admin/delete/<int:id>', view_func=deletePlayer, methods=['POS
 app.add_url_rule('/admin/submit/<int:id>', view_func=submitPlayer, methods=['GET', 'POST'])
 app.add_url_rule('/admin/update/<int:id>', view_func=updatePlayer, methods=['POST','GET'])
 app.add_url_rule('/admin/delete/delete_all_matches', view_func=deleteMatchHistory, methods=['POST'])
+app.add_url_rule('/admin/dispute/<int:matchId>', view_func=resolveMatch, methods=['POST','GET'])
 
 # map the login / logout stuff
 app.add_url_rule('/login/', view_func=login, methods=['POST','GET'])

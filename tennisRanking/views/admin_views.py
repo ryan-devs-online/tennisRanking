@@ -7,7 +7,8 @@ from tennisRanking.models import User, Matches, playerRanking, db
 def admin():
     if current_user.isCoach:
         players = User.query.order_by(User.lastName).all()
-        return render_template('admin.html', players=players)
+        matches = Matches.query.all()
+        return render_template('admin.html', players=players, matches=matches)
     else:
         return redirect('/')
 
@@ -71,6 +72,28 @@ def submitPlayer(id):
             return render_template('admin.html')
     else:
         return redirect('/')
+    
+@login_required
+def resolveMatch(matchId):
+    if current_user.isCoach:
+        match = Matches.query.get(matchId)
+        playerOne = User.query.get_or_404(match.playerIdOne)
+        playerTwo = User.query.get_or_404(match.playerIdTwo)
+
+        if request.method == 'POST':
+            winner = request.form.get('winner')
+            score = request.form.get('score')
+
+            match.matchScore = score
+            match.winner = winner
+            match.isDisputed = False
+
+            db.session.commit()
+            return redirect('/admin')
+        else:
+            return render_template('dispute.html', playerOne=playerOne, playerTwo=playerTwo, match=match)
+    else:
+        return "Nice try nerd"
 
 @login_required
 def deleteMatchHistory():
