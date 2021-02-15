@@ -31,8 +31,7 @@ logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
 with app.app_context():
     db.create_all()
-    # db.drop_all()
-
+    #db.drop_all()
 
 @login_manager.user_loader
 def user_loader(user_id):

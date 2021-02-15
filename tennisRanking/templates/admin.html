@@ -16,6 +16,7 @@
             <th>Player</th>
             <th>Ranking</th>
             <th>email</th>
+            <th>Doubles Partner</th>
             <th>Actions</th>
         </tr>
         {% for player in players %}
@@ -25,7 +26,15 @@
             <td>{{ player.ranking }}</td>
             <td>{{ player.email }}</td>
             <td>
-                <a href="/admin/delete/{{ player.userId }}">Delete</a>
+                <select name = players method = "GET" action = "/">
+                    {% for currentPlayer in players %}
+                        {% if currentPlayer != player and not currentPlayer.isCoach%}
+                            <option value= "{{currentPlayer.userId}}"> {{currentPlayer.firstName}} {{currentPlayer.lastName}}</option>
+                        {% endif %}
+                    {% endfor %} <br><br>
+            </td>
+            <td>
+                <a href="/admin/delete/{{player.userId}}">Delete</a>
                 <a href="/admin/update/{{player.userId}}">Update</a>
             </td>
         </tr>
